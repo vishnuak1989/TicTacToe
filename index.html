@@ -1,0 +1,79 @@
+<html>
+<head>
+  <style>
+  .board{
+    display:flex;
+    width:600px;
+    height:600px;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .square{
+    height:200px;
+    width:200px;
+    box-sizing:border-box;
+    border:5px solid black;
+    font-size: 5em;
+    display: flex;
+    justify-content: :center;
+    align-items: center;
+  }
+  .square:hover{
+    cursor:pointer;
+    background-color:#32CD32;
+  }
+  </style>
+</head>
+<body>
+<div class="board">
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+  <div class="square"></div>
+</div>
+
+<script>
+var player_one_symbol = 'X'
+var player_two_symbol = 'O'
+var currentTurn= player_one_symbol
+
+var board = document.querySelector('.board')
+board.addEventListener('click',function(e){
+  e.target.innerHTML = currentTurn
+  currentTurn = currentTurn === player_one_symbol ? player_two_symbol : player_one_symbol
+  if(checkForWinner()){
+    alert('Somebody Won')
+  }
+
+})
+
+function checkForWinner(){
+  var squares = Array.prototype.slice.call(document.querySelectorAll('.square'),0)
+  var symbols = squares.map(function(square){
+    return square.innerHTML
+  })
+  var winningCombos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
+//  console.log(symbols)
+return winningCombos.find(function(combo){
+  if(symbols[combo[0]]==symbols[combo[1]] && symbols[combo[1]] == symbols[combo[2]])
+  {
+    console.log(symbols[combo[0]])
+    return symbols[combo[0]]
+
+  }
+  else {
+    return false
+  }
+})
+}
+</script>
+
+</body>
+
+</html>
